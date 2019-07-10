@@ -20,11 +20,10 @@ function getRestaurant() {
 
 $(document).ready(function() {
   $(".btn").click(function() {
-    $("#result").fadeIn();
-    $("#result").css({ animation: "shake 0.2s" });
+    $("#result").css({ animation: "shake 0.2s", display: "inline-block" });
     $("#init-text").css("display", "none");
     setTimeout(function() {
-      $("#result").css({ animation: "" });
+      $("#result").css("animation", "");
     }, 200);
   });
 
