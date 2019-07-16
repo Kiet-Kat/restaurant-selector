@@ -15,6 +15,7 @@ var restaurants = [
 ];
 
 var map, marker, infowindow;
+var markers=[];
 
 function getRestaurant() {
   return restaurants[Math.floor(Math.random() * restaurants.length)];
@@ -28,19 +29,27 @@ function initMap() {
   }
   //New Map
   map = new google.maps.Map(document.getElementById('map'), options);
+  
+  for (restaurant of restaurants){
+    markers[restaurant.name] = new google.maps.Marker({
+      position: restaurant.coords,
+      map: map,
+      title: restaurant.name,
+      animation: google.maps.Animation.BOUNCE,
+      visible: false,
+    })
+  }
+  console.log(markers);
+  console.log(markers.length);
 }
 
-function addMarker(restaurant){
-  marker = new google.maps.Marker({
-    position: restaurant.coords,
-    title: restaurant.name,
-    animation: google.maps.Animation.BOUNCE,
-  })
-  infowindow = new google.maps.InfoWindow({
-    content: restaurant.name
-  })
-  marker.setMap(map);
-
+function removeMarker(){
+  for (restaurant of restaurants){
+    if (markers[restaurant.name].getVisible() == true){
+      markers[restaurant.name].setVisible(false);
+      console.log("removed");
+    }
+  }
 }
 
 $(document).ready(function() {
@@ -54,47 +63,34 @@ $(document).ready(function() {
   });
 
   $(".roll1").click(function() {
-    try {
-      marker.setMap(null);
-    } catch (error) {
-      //do nothing if no marker is set
-    }
+    removeMarker();
     restaurant = getRestaurant()
     var result = restaurant.name;
-    addMarker(restaurant);
+    markers[restaurant.name].setVisible(true);
     $("#result").text(result);
-
   });
 
   $(".roll3").click(function() {
-    try {
-      marker.setMap(null);
-    } catch (error) {
-      //do nothing if no marker is set
-    }
+    removeMarker();
     var result = [];
     while (result.length < 3) {
       restaurant = getRestaurant();
       if (result.includes(restaurant)) {
       } else {
         result.push(restaurant);
-        //addMarker(restaurant);
+        markers[restaurant.name].setVisible(true);
       }
     }
     $("#result").text(result[0].name + ", " + result[1].name + ", " + result[2].name);
   });
 
   $(".eat-out").click(function() {
-    try {
-      marker.setMap(null);
-    } catch (error) {
-      //do nothing if no marker is set
-    }
+    removeMarker();
     var eatOut = Math.random() >= 0.65;
     if (eatOut == true) {
       var restaurant = getRestaurant();
       $("#result").text("Eat out at " + restaurant.name);
-      addMarker(restaurant);
+      markers[restaurant.name].setVisible(true);
       // map.setCenter(restaurant.coords);
       // map.setZoom(15);
     } else {
