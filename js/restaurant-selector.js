@@ -1,5 +1,3 @@
-
-
 var map, marker, infowindow;
 var markers = [];
 
@@ -22,8 +20,8 @@ function initMap() {
       map: map,
       title: restaurant.name,
       animation: google.maps.Animation.BOUNCE,
-      visible: false,
-    })
+      visible: false
+    });
   }
   console.log(markers);
   console.log(markers.length);
@@ -51,7 +49,7 @@ $(document).ready(function () {
 
   $(".roll1").click(function () {
     removeMarker();
-    restaurant = getRestaurant()
+    restaurant = getRestaurant();
     var result = restaurant.name;
     markers[restaurant.name].setVisible(true);
     $("#result").text(result);
@@ -68,7 +66,9 @@ $(document).ready(function () {
         markers[restaurant.name].setVisible(true);
       }
     }
-    $("#result").text(result[0].name + ", " + result[1].name + ", " + result[2].name);
+    $("#result").text(
+      result[0].name + ", " + result[1].name + ", " + result[2].name
+    );
   });
 
   $(".eat-out").click(function () {
