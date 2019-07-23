@@ -67,7 +67,7 @@ $(document).ready(function () {
       }
     }
     $("#result").text(
-      result[0].name + ", " + result[1].name + ", " + result[2].name
+      `${result[0].name}, ${result[1].name}, and ${result[2].name}`
     );
   });
 
@@ -76,7 +76,7 @@ $(document).ready(function () {
     var eatOut = Math.random() >= 0.65;
     if (eatOut == true) {
       var restaurant = getRestaurant();
-      $("#result").text("Eat out at " + restaurant.name);
+      $("#result").text(`Eat out at ${restaurant.name}`);
       markers[restaurant.name].setVisible(true);
       // map.setCenter(restaurant.coords);
       // map.setZoom(15);
